@@ -2,15 +2,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import type { User } from "firebase/auth";
 import Tasks from "@/components/Dashboard";
 import Login from "@/components/Login";
 import { TbListCheck } from "react-icons/tb";
 import { RxExit } from "react-icons/rx";
-import { auth } from "@/firebase"; // Adjust the import path as necessary
+import { auth } from "@/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 
 export default function HomePage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, setUser);

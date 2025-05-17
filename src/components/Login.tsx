@@ -37,8 +37,9 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       setEmail("");
       setPassword("");
-    } catch (err: any) {
-      setError(err.message || "Login failed");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Login failed";
+      setError(message);
     }
   };
 
@@ -64,8 +65,9 @@ export default function Login() {
       setName("");
       setEmail("");
       setPassword("");
-    } catch (err: any) {
-      setError(err.message || "Sign-up failed");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Sign-up failed";
+      setError(message);
     }
   };
 

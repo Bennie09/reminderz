@@ -4,7 +4,6 @@ import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Timestamp } from "firebase/firestore";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { enGB } from "date-fns/locale/en-GB";
-import axios from "axios";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -64,7 +63,6 @@ export default function Dashboard() {
     const unsubscribe = onSnapshot(tasksQuery, (snapshot) => {
       const docs = snapshot.docs.map((d) => {
         const data = d.data() as DocumentData;
-        // now assert to your Entry type
         const entry: Entry = {
           id: d.id,
           title: data.title,
@@ -110,7 +108,7 @@ export default function Dashboard() {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_QSTASH_TOKEN}`, // Or use server proxy
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_QSTASH_TOKEN}`,
           "Upstash-Delay": `until=${isoTime}`,
           "Content-Type": "application/json",
         },
@@ -155,7 +153,7 @@ export default function Dashboard() {
       `Reminder: ${titleTrimmed}`,
       tasks.details || "No details provided.",
       tasks.date,
-      tasks.time // Make sure time field exists and is valid
+      tasks.time
     );
   };
 
@@ -244,6 +242,7 @@ export default function Dashboard() {
             </label>
             <DatePicker
               selected={tasks.date ? new Date(tasks.date) : null}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onChange={(date) =>
                 handleChange({
                   target: {
@@ -266,7 +265,6 @@ export default function Dashboard() {
           </div>
 
           {/* Reminder Time */}
-
           <label className="block mb-1 text-gray-700">
             Reminder Time ( 24hr )
           </label>
