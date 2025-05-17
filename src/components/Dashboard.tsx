@@ -101,19 +101,20 @@ export default function Dashboard() {
   ) => {
     const scheduledDateTime = new Date(`${date}T${time}:00`);
     const isoTime = scheduledDateTime.toISOString();
-    const site = process.env.NEXT_PUBLIC_SITE_URL;
-    const endpoint = `https://qstash.upstash.io/v1/publish/https://${site}/.netlify/functions/sendEmail`;
 
     try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_QSTASH_TOKEN}`,
-          "Upstash-Delay": `until=${isoTime}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, subject, content }),
-      });
+      const res = await fetch(
+        "https://qstash.upstash.io/v1/publish/https://your-site.netlify.app/.netlify/functions/sendEmail",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_QSTASH_TOKEN}`,
+            "Upstash-Delay": `until=${isoTime}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, subject, content }),
+        }
+      );
       if (!res.ok) {
         console.error("QStash publish error:", await res.text());
       }
