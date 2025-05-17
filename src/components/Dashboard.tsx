@@ -292,23 +292,26 @@ export default function Dashboard() {
           entries.map((entry) => (
             <div
               key={entry.id}
-              className="bg-white p-4 sm:p-6 rounded-2xl shadow-md flex flex-col sm:flex-column sm:justify-between"
+              className="bg-white p-4 sm:p-6 rounded-2xl shadow-md flex flex-col sm:flex-col sm:justify-between"
             >
               <div>
                 <h3
-                  className={`text-lg font-semibold ${
-                    entry.completed ? "line-through text-gray-400" : ""
+                  className={`text-lg font-semibold whitespace-pre-wrap break-words ${
+                    entry.completed
+                      ? "line-through text-gray-400 flex flex-col"
+                      : ""
                   }`}
                 >
                   {entry.title}
                 </h3>
                 <p
-                  className={`${
+                  className={`whitespace-pre-wrap break-words ${
                     entry.completed ? "line-through text-gray-400" : ""
                   }`}
                 >
                   {entry.details}
                 </p>
+
                 <p className="text-md mt-1">
                   <strong>Due:</strong> {entry.date}
                   {entry.time && (
