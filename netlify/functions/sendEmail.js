@@ -1,4 +1,10 @@
-const fetch = require("node-fetch");
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
+/**
+ * This function sends an email using the Brevo API.
+ * It expects a JSON payload with 'to', 'subject', and 'message' fields.
+ * The API key and sender email are taken from environment variables.
+ */
 
 exports.handler = async (event) => {
   const { to, subject, message } = JSON.parse(event.body || "{}");

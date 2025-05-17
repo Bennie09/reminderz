@@ -277,7 +277,7 @@ export default function Dashboard() {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center space-x-2 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+            className="w-full flex items-center justify-center space-x-2 bg-blue-500 text-white cursor-pointer py-2 rounded hover:bg-blue-600 transition"
           >
             <CiCirclePlus className="text-xl" />
             <span>Add Task</span>

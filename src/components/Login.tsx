@@ -146,7 +146,7 @@ export default function Login() {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+          className="w-full bg-blue-500 text-white cursor-pointer py-2 rounded-lg hover:bg-blue-600 transition"
         >
           {isSignUp ? "Sign Up" : "Login"}
         </button>
@@ -162,7 +162,7 @@ export default function Login() {
                 setIsSignUp(false);
                 setError("");
               }}
-              className="text-blue-500 underline"
+              className="text-blue-500 underline cursor-pointer"
             >
               Login
             </button>
@@ -176,7 +176,7 @@ export default function Login() {
                 setIsSignUp(true);
                 setError("");
               }}
-              className="text-blue-500 underline"
+              className="text-blue-500 underline cursor-pointer"
             >
               Sign Up
             </button>
