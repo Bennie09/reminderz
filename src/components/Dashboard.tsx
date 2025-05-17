@@ -63,15 +63,14 @@ export default function Dashboard() {
     const unsubscribe = onSnapshot(tasksQuery, (snapshot) => {
       const docs = snapshot.docs.map((d) => {
         const data = d.data() as DocumentData;
-        const entry: Entry = {
+        return {
           id: d.id,
           title: data.title,
           details: data.details,
           date: data.date,
           time: data.time ?? "",
           completed: data.completed,
-        };
-        return entry;
+        } as Entry;
       });
       setEntries(docs);
     });
@@ -102,59 +101,80 @@ export default function Dashboard() {
   ) => {
     const scheduledDateTime = new Date(`${date}T${time}:00`);
     const isoTime = scheduledDateTime.toISOString();
+    const site = process.env.NEXT_PUBLIC_SITE_URL;
+    const endpoint = `https://qstash.upstash.io/v1/publish/https://${site}/.netlify/functions/sendEmail`;
 
-    await fetch(
-      "https://qstash.upstash.io/v1/publish/https://your-site.netlify.app/.netlify/functions/sendEmail",
-      {
+    try {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_QSTASH_TOKEN}`,
           "Upstash-Delay": `until=${isoTime}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          subject,
-          content,
-        }),
+        body: JSON.stringify({ email, subject, content }),
+      });
+      if (!res.ok) {
+        console.error("QStash publish error:", await res.text());
       }
-    );
+    } catch (err) {
+      console.error("scheduleEmail error:", err);
+    }
   };
 
   // Handle form submit
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const newErr = { error1: "", error2: "" };
+    const errs = { error1: "", error2: "" };
     const titleTrimmed = tasks.title.trim();
-    if (!titleTrimmed) newErr.error1 = "Task Title cannot be empty";
+    if (!titleTrimmed) errs.error1 = "Task Title cannot be empty";
     if (titleTrimmed.length > 60)
-      newErr.error1 = "Task Title cannot exceed 60 characters";
+      errs.error1 = "Task Title cannot exceed 60 characters";
     if (
       entries.some(
         (entry) =>
           entry.title.trim().toLowerCase() === titleTrimmed.toLowerCase()
       )
     ) {
-      newErr.error1 = "Task Title already exists";
+      errs.error1 = "Task Title already exists";
     }
-    if (!tasks.date) newErr.error2 = "Due Date is required";
+    if (!tasks.date) errs.error2 = "Due Date is required";
 
-    if (newErr.error1 || newErr.error2) {
-      setError(newErr);
+    if (errs.error1 || errs.error2) {
+      setError(errs);
       return;
     }
 
     await saveTask({ ...tasks, title: titleTrimmed });
     setTasks({ title: "", details: "", date: "", time: "" });
 
+    const userEmail = auth.currentUser!.email!;
     await scheduleEmail(
-      auth.currentUser?.email || "fallback@email.com",
+      userEmail,
       `Reminder: ${titleTrimmed}`,
       tasks.details || "No details provided.",
       tasks.date,
       tasks.time
     );
+  };
+
+  // Handle date selection
+  const handleDateChange = (date: Date | null) => {
+    if (date && !isNaN(date.getTime())) {
+      setTasks((prev) => ({ ...prev, date: format(date, "yyyy-MM-dd") }));
+      setError((prev) => ({ ...prev, error2: "" }));
+    }
+  };
+
+  // Handle other input changes
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setTasks((prev) => ({ ...prev, [name]: value }));
+    if (name === "title" && value.trim())
+      setError((prev) => ({ ...prev, error1: "" }));
   };
 
   // Toggle completion
@@ -165,18 +185,6 @@ export default function Dashboard() {
   // Delete task
   const handleDelete = async (id: string) => {
     await deleteDoc(doc(db, "tasks", id));
-  };
-
-  // Handle input changes
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setTasks((prev) => ({ ...prev, [name]: value }));
-    if (name === "title" && value.trim())
-      setError((err) => ({ ...err, error1: "" }));
-    if (name === "date" && value.trim())
-      setError((err) => ({ ...err, error2: "" }));
   };
 
   // Clear error messages after 3s
@@ -242,18 +250,7 @@ export default function Dashboard() {
             </label>
             <DatePicker
               selected={tasks.date ? new Date(tasks.date) : null}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onChange={(date) =>
-                handleChange({
-                  target: {
-                    name: "date",
-                    value:
-                      date instanceof Date && !isNaN(date.getTime())
-                        ? format(date, "yyyy-MM-dd")
-                        : "",
-                  },
-                } as any)
-              }
+              onChange={handleDateChange}
               locale="en-GB"
               dateFormat="yyyy-MM-dd"
               placeholderText="Set Reminder Date"
