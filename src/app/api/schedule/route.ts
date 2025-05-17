@@ -28,7 +28,8 @@ export async function POST(req: NextRequest) {
 
     const result = await res.text();
     return NextResponse.json({ status: res.status, result });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    console.error("QStash publish error:", err);
+    return NextResponse.json({ error: "Failed to schedule email" }, { status: 500 });
   }
 }
