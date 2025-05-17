@@ -91,7 +91,7 @@ export default function Login() {
   // Otherwise, show login/sign-up form
   return (
     <div className="w-full max-w-md mx-auto">
-      <h2 className="text-center text-2xl text-blue-600 font-semibold mb-4">
+      <h2 className="text-center text-2xl text-blue-500 font-semibold mb-4">
         {isSignUp ? "Sign Up" : "Login"}
       </h2>
       <form

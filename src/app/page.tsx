@@ -29,7 +29,7 @@ export default function HomePage() {
           {/* Header */}
           <div className="flex items-start justify-between mb-6 sm:px-0 md:px-0 lg:px-64">
             <div className="flex flex-col">
-              <h1 className="flex items-left justify-left text-2xl sm:text-3xl lg:text-3xl font-bold text-blue-500 mb-2">
+              <h1 className="flex items-left justify-left text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0F95FF] mb-2">
                 <TbListCheck className="pr-2 text-4xl sm:text-5xl" />
                 <span className="pb-1 sm:pt-1">TaskWise</span>
               </h1>
@@ -60,9 +60,9 @@ export default function HomePage() {
       ) : (
         <>
           {/* Landing / Login */}
-          <h1 className="flex items-center justify-center text-2xl sm:text-3xl lg:text-3xl font-bold text-blue-500 mb-2">
+          <h1 className="flex items-center justify-center text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0F95FF] mb-2">
             <TbListCheck className="pr-2 text-4xl sm:text-5xl" />
-            TaskWise0
+            TaskWise
           </h1>
           <h2 className="text-base sm:text-lg lg:text-xl text-center mb-6">
             Organize your life, a task at a time.
