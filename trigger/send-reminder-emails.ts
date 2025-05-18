@@ -59,13 +59,14 @@ export const sendReminderEmails = schedules.task({
   {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      to: ownerEmail,
-      subject: `⏰ Reminder: ${title}`,
-      title,
-      details: details || "No details provided.",
-      name: data.ownerName || "User",
-    }),
+body: JSON.stringify({
+  to: ownerEmail || "fallback@email.com", // replace with your email
+  subject: `⏰ Reminder: ${title || "No Title"}`,
+  title: title || "No Title",
+  details: details || "No details provided.",
+  name: data.ownerName || "User",
+}),
+
   }
 );
 
