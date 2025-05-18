@@ -1,10 +1,10 @@
-// /app/api/sendEmail/route.ts
+// src/app/api/send-email/route.ts
 
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    // Parse incoming body
+    // Parse and log incoming body
     const body = await req.json();
     const { to, subject, title, details, name } = body;
     console.log("📥 Received sendEmail request:", { to, subject, title, details, name });
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     // Collect missing required fields
     const required = { to, subject, title };
     const missing = Object.entries(required)
-      .filter(([_, value]) => !value)
+      .filter(([, value]) => !value)
       .map(([key]) => key);
 
     if (missing.length > 0) {
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check API key
+    // Ensure API key is present
     const apiKey = process.env.BREVO_API_KEY;
     if (!apiKey) {
       console.error("❌ BREVO_API_KEY not set");
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Send to Brevo
+    // Call Brevo
     const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: {
@@ -48,7 +48,11 @@ export async function POST(req: Request) {
         to: [{ email: to, name: name || "User" }],
         subject,
         templateId: 1,
-        params: { name: name || "there", title, details: details ?? "" },
+        params: {
+          name: name ?? "there",
+          title,
+          details: details ?? "",
+        },
       }),
     });
 
@@ -63,10 +67,10 @@ export async function POST(req: Request) {
 
     console.log("✅ Email queued successfully:", brevoData);
     return NextResponse.json({ success: true });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("🔥 Unexpected error in sendEmail:", err);
     return NextResponse.json(
-      { success: false, error: "Internal server error" },
+      { success: false, error: err instanceof Error ? err.message : "Internal server error" },
       { status: 500 }
     );
   }
