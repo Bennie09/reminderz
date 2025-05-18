@@ -3,11 +3,12 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { to, subject, title, details, name } = await req.json();
+    console.log("Received request body:", { to, subject, title, details, name });
 
     // ✅ Validate required fields
     if (!to || !subject || !title) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Missing required fields",  received: { to, subject, title } },
         { status: 400 }
       );
     }
