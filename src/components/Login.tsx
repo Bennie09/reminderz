@@ -55,6 +55,12 @@ export default function Login() {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       // Update displayName
       await updateProfile(cred.user, { displayName: name.trim() });
+
+      await cred.user.reload();
+
+      // Update local user state with fresh data
+      setUser(cred.user);
+
       // Create Firestore profile
       await setDoc(doc(db, "users", cred.user.uid), {
         uid: cred.user.uid,
