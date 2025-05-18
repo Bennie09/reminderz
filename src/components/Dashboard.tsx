@@ -86,43 +86,12 @@ export default function Dashboard() {
     await addDoc(collection(db, "tasks"), {
       ...task,
       ownerId: user.uid,
+      ownerEmail: user.email,
       completed: false,
       createdAt: new Date(),
       dueAt: Timestamp.fromDate(new Date(`${task.date}T${task.time}`)),
     });
   }
-
-  const scheduleEmail = async (
-    email: string,
-    subject: string,
-    content: string,
-    date: string,
-    time: string
-  ) => {
-    const scheduledDateTime = new Date(`${date}T${time}:00`);
-    const isoTime = scheduledDateTime.toISOString();
-
-    try {
-      const res = await fetch("/api/schedule", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: email,
-          subject,
-          message: content,
-          sendAt: isoTime, // 👈 required to delay
-        }),
-      });
-
-      if (!res.ok) {
-        console.error("QStash publish error:", await res.text());
-      }
-    } catch (err) {
-      console.error("scheduleEmail error:", err);
-    }
-  };
 
   // Handle form submit
   const handleSubmit = async (e: FormEvent) => {
@@ -152,13 +121,13 @@ export default function Dashboard() {
     setTasks({ title: "", details: "", date: "", time: "" });
 
     const userEmail = auth.currentUser!.email!;
-    await scheduleEmail(
-      userEmail,
-      `Reminder: ${titleTrimmed}`,
-      tasks.details || "No details provided.",
-      tasks.date,
-      tasks.time
-    );
+    // await scheduleEmail(
+    //   userEmail,
+    //   `Reminder: ${titleTrimmed}`,
+    //   tasks.details || "No details provided.",
+    //   tasks.date,
+    //   tasks.time
+    // );
   };
 
   // Handle date selection
