@@ -120,7 +120,7 @@ export default function Dashboard() {
     await saveTask({ ...tasks, title: titleTrimmed });
     setTasks({ title: "", details: "", date: "", time: "" });
 
-    const userEmail = auth.currentUser!.email!;
+    // const userEmail = auth.currentUser!.email!;
     // await scheduleEmail(
     //   userEmail,
     //   `Reminder: ${titleTrimmed}`,
