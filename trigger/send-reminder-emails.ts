@@ -54,19 +54,28 @@ export const sendReminderEmails = schedules.task({
       }
 
       try {
+        console.log("Sending email with payload:", {
+  to: ownerEmail,
+  subject: `⏰ Reminder: ${title}`,
+  title,
+  details: details || "No details provided.",
+  name: data.ownerName || "User",
+});
+        console.log("Sending email for task", doc.id, "to", ownerEmail);
+        console.log("Task details:", { title, details, name: data.ownerName });
+        console.log("Task data:", data);
         const res = await fetch(
   "https://taskwise0.netlify.app/.netlify/functions/sendEmail",
   {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
-  to: ownerEmail || "fallback@email.com", // replace with your email
-  subject: `⏰ Reminder: ${title || "No Title"}`,
-  title: title || "No Title",
-  details: details || "No details provided.",
-  name: data.ownerName || "User",
-}),
-
+    body: JSON.stringify({
+      to: ownerEmail || "fallback@email.com", // replace with your email
+      subject: `⏰ Reminder: ${title || "No Title"}`,
+      title: title || "No Title",
+      details: details || "No details provided.",
+      name: data.ownerName || "User",
+    }),
   }
 );
 
