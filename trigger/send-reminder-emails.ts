@@ -65,7 +65,7 @@ export const sendReminderEmails = schedules.task({
         console.log("Task details:", { title, details, name: data.ownerName });
         console.log("Task data:", data);
         const res = await fetch(
-  "https://taskwise0.netlify.app/.netlify/functions/sendEmail",
+  "https://taskwise0.netlify.app/api/send-email",
   {
     method: "POST",
     headers: { "Content-Type": "application/json" },
