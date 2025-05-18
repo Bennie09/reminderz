@@ -87,6 +87,7 @@ export default function Dashboard() {
       ...task,
       ownerId: user.uid,
       ownerEmail: user.email,
+      ownerName: user.displayName,
       completed: false,
       createdAt: new Date(),
       dueAt: Timestamp.fromDate(new Date(`${task.date}T${task.time}`)),
