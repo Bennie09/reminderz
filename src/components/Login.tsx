@@ -11,6 +11,7 @@ import {
   signOut,
   User,
 } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 export default function Login() {
   const [name, setName] = useState<string>(""); // Username
@@ -44,6 +45,8 @@ export default function Login() {
   };
 
   // Sign-up handler
+  const auth = getAuth(); // your auth instance
+
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
@@ -51,23 +54,31 @@ export default function Login() {
       setError("Please enter a username");
       return;
     }
+
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
-      // Update displayName
+
+      // Update display name
       await updateProfile(cred.user, { displayName: name.trim() });
 
+      // Reload user to reflect the new display name
       await cred.user.reload();
 
-      // Update local user state with fresh data
-      setUser(cred.user);
+      // Get the updated user with displayName
+      const updatedUser = getAuth().currentUser;
 
-      // Create Firestore profile
+      // Set the updated user manually so UI reflects it immediately
+      setUser(updatedUser);
+
+      // Save user to Firestore
       await setDoc(doc(db, "users", cred.user.uid), {
         uid: cred.user.uid,
         email: cred.user.email,
-        displayName: cred.user.displayName,
+        displayName: name.trim(), // store trimmed name
         createdAt: new Date(),
       });
+
+      // Clear input fields
       setName("");
       setEmail("");
       setPassword("");

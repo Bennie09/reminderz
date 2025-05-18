@@ -40,7 +40,7 @@ export default function HomePage() {
 
             <div className="flex flex-col items-end mt-2">
               <h3 className="text-sm sm:text-lg font-bold text-gray-700">
-                Welcome, {user.displayName || user.email}!
+                Welcome, {user?.displayName || "User"}!
               </h3>
               <button
                 onClick={handleLogout}
