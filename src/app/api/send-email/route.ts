@@ -1,52 +1,72 @@
+// /app/api/sendEmail/route.ts
+
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { to, subject, title, details, name } = await req.json();
-    console.log("Received request body:", { to, subject, title, details, name });
+    // Parse incoming body
+    const body = await req.json();
+    const { to, subject, title, details, name } = body;
+    console.log("📥 Received sendEmail request:", { to, subject, title, details, name });
 
-    // ✅ Validate required fields
-    if (!to || !subject || !title) {
+    // Collect missing required fields
+    const required = { to, subject, title };
+    const missing = Object.entries(required)
+      .filter(([_, value]) => !value)
+      .map(([key]) => key);
+
+    if (missing.length > 0) {
       return NextResponse.json(
-        { error: "Missing required fields",  received: { to, subject, title } },
+        {
+          success: false,
+          error: `Missing required field${missing.length > 1 ? "s" : ""}: ${missing.join(", ")}`,
+          received: { to, subject, title },
+        },
         { status: 400 }
       );
     }
 
+    // Check API key
     const apiKey = process.env.BREVO_API_KEY;
-    const templateId = 1; // Make sure this is your actual Brevo template ID
+    if (!apiKey) {
+      console.error("❌ BREVO_API_KEY not set");
+      return NextResponse.json(
+        { success: false, error: "Server misconfiguration" },
+        { status: 500 }
+      );
+    }
 
-    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+    // Send to Brevo
+    const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-key": apiKey!,
+        "api-key": apiKey,
       },
       body: JSON.stringify({
         sender: { name: "TaskWise", email: "taskwise3@gmail.com" },
         to: [{ email: to, name: name || "User" }],
         subject,
-        templateId,
-        params: {
-          name,
-          title,
-          details: details || "No details provided.",
-        },
+        templateId: 1,
+        params: { name: name || "there", title, details: details ?? "" },
       }),
     });
 
-    const data = await res.json();
-
-    if (res.ok) {
-      return NextResponse.json({ success: true });
-    } else {
-      console.error("Brevo API error:", data);
-      return NextResponse.json({ success: false, error: data }, { status: 500 });
+    const brevoData = await brevoRes.json();
+    if (!brevoRes.ok) {
+      console.error("❌ Brevo API error:", brevoData);
+      return NextResponse.json(
+        { success: false, error: brevoData },
+        { status: 502 }
+      );
     }
-  } catch (err) {
-    console.error("Unexpected error:", err);
+
+    console.log("✅ Email queued successfully:", brevoData);
+    return NextResponse.json({ success: true });
+  } catch (err: any) {
+    console.error("🔥 Unexpected error in sendEmail:", err);
     return NextResponse.json(
-      { success: false, error: "Server error" },
+      { success: false, error: "Internal server error" },
       { status: 500 }
     );
   }
