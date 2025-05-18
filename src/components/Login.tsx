@@ -11,7 +11,6 @@ import {
   signOut,
   User,
 } from "firebase/auth";
-import { getAuth } from "firebase/auth";
 
 export default function Login() {
   const [name, setName] = useState<string>(""); // Username
@@ -44,9 +43,6 @@ export default function Login() {
     }
   };
 
-  // Sign-up handler
-  const auth = getAuth(); // your auth instance
-
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
@@ -60,15 +56,6 @@ export default function Login() {
 
       // Update display name
       await updateProfile(cred.user, { displayName: name.trim() });
-
-      // Reload user to reflect the new display name
-      await cred.user.reload();
-
-      // Get the updated user with displayName
-      const updatedUser = getAuth().currentUser;
-
-      // Set the updated user manually so UI reflects it immediately
-      setUser(updatedUser);
 
       // Save user to Firestore
       await setDoc(doc(db, "users", cred.user.uid), {
