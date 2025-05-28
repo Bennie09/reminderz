@@ -2,7 +2,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import TestDark from "@/components/ThemeToggleTest";
 import { toast } from "react-toastify";
 import type { User } from "firebase/auth";
 import Tasks from "@/components/Dashboard";
@@ -27,8 +26,6 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen px-4 sm:px-6 lg:px-8 py-6">
-      <TestDark />
-
       {user ? (
         <>
           {/* Header */}

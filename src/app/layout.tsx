@@ -23,7 +23,13 @@ export default function RootLayout({
     <html lang="en" className="">
       <body className="min-h-screen font-winky bg-white text-black dark:bg-black dark:text-white transition-colors duration-300">
         <ThemeProvider>{children}</ThemeProvider>
-        <ToastContainer />
+        <ToastContainer
+          toastStyle={{
+            fontFamily: "'Winky Sans', sans-serif",
+          }}
+          position="top-right"
+          autoClose={3000}
+        />
       </body>
     </html>
   );

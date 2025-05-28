@@ -177,14 +177,19 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col items-center">
       {/* Task Form */}
-      <div className="w-full max-w-2xl bg-white p-6 rounded-2xl shadow-md">
-        <h1 className="text-center text-2xl font-semibold mb-4">Set Tasks</h1>
+      {/* Task Form */}
+      <div className="w-full max-w-2xl bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border dark:border-gray-700">
+        <h1 className="text-center text-2xl font-semibold mb-4 text-black dark:text-white">
+          Set Tasks
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title */}
           <div>
             <label
               className={`block mb-1 ${
-                error.error1 ? "text-red-500" : "text-gray-700"
+                error.error1
+                  ? "text-red-500"
+                  : "text-gray-700 dark:text-gray-300"
               }`}
             >
               Task Title
@@ -195,8 +200,10 @@ export default function Dashboard() {
               value={tasks.title}
               onChange={handleChange}
               placeholder="E.g., Grocery Shopping"
-              className={`w-full p-2 border rounded ${
-                error.error1 ? "border-red-500" : "border-black"
+              className={`w-full p-2 border rounded bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                error.error1
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600"
               }`}
             />
             {error.error1 && (
@@ -206,14 +213,16 @@ export default function Dashboard() {
 
           {/* Details */}
           <div>
-            <label className="block mb-1 text-gray-700">Task Details</label>
+            <label className="block mb-1 text-gray-700 dark:text-gray-300">
+              Task Details
+            </label>
             <textarea
               name="details"
               value={tasks.details}
               onChange={handleChange}
               rows={3}
               placeholder="Enter additional details.."
-              className="w-full p-2 border rounded resize-none"
+              className="w-full p-2 border rounded resize-none bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 border-gray-300 dark:border-gray-600"
             />
           </div>
 
@@ -221,7 +230,9 @@ export default function Dashboard() {
           <div>
             <label
               className={`block mb-1 ${
-                error.error2 ? "text-red-500" : "text-gray-700"
+                error.error2
+                  ? "text-red-500"
+                  : "text-gray-700 dark:text-gray-300"
               }`}
             >
               Due Date
@@ -232,8 +243,10 @@ export default function Dashboard() {
               locale="en-GB"
               dateFormat="yyyy-MM-dd"
               placeholderText="Set Reminder Date"
-              className={`w-full max-w-2xl p-2 border rounded ${
-                error.error2 ? "border-red-500" : "border-black"
+              className={`w-full max-w-2xl p-2 border rounded bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                error.error2
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600"
               }`}
             />
             {error.error2 && (
@@ -245,7 +258,9 @@ export default function Dashboard() {
           <div>
             <label
               className={`block mb-1 ${
-                error.error3 ? "text-red-500" : "text-gray-700"
+                error.error3
+                  ? "text-red-500"
+                  : "text-gray-700 dark:text-gray-300"
               }`}
             >
               Reminder Time
@@ -256,8 +271,10 @@ export default function Dashboard() {
               value={tasks.time}
               onChange={handleChange}
               placeholder="Set Reminder Time"
-              className={`w-full p-2 border rounded ${
-                error.error3 ? "border-red-500" : "border-black"
+              className={`w-full p-2 border rounded bg-white dark:bg-gray-700 text-black dark:text-white ${
+                error.error3
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600"
               }`}
             />
             {error.error3 && (
@@ -267,7 +284,7 @@ export default function Dashboard() {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center space-x-2 bg-blue-500 text-white cursor-pointer py-2 rounded hover:bg-blue-600 transition"
+            className="w-full flex items-center justify-center space-x-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white cursor-pointer py-2 rounded transition"
           >
             <CiCirclePlus className="text-xl" />
             <span>Add Task</span>
@@ -279,35 +296,39 @@ export default function Dashboard() {
       <div className="w-full max-w-2xl space-y-4 mt-6">
         {entries.length > 0 ? (
           <>
-            <h1 className="text-center text-2xl font-semibold mb-4">
+            <h1 className="text-center text-2xl font-semibold mb-4 text-black dark:text-white">
               Your Tasks
             </h1>
             {entries.map((entry) => (
               <div
                 key={entry.id}
-                className="glass-card bg-white p-4 sm:p-6 rounded-2xl shadow-md flex flex-col sm:flex-col sm:justify-between"
+                className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-md border dark:border-gray-700 flex flex-col sm:flex-col sm:justify-between"
               >
                 <div>
                   <h3
-                    className={`text-lg font-semibold whitespace-pre-wrap break-words ${
+                    className={`text-lg font-semibold whitespace-pre-wrap break-words text-black dark:text-white ${
                       entry.completed
-                        ? "line-through text-gray-400 flex flex-col"
+                        ? "line-through text-gray-400 dark:text-gray-500 flex flex-col"
                         : ""
                     }`}
                   >
                     {entry.title}
                   </h3>
                   <p
-                    className={`whitespace-pre-wrap break-words ${
-                      entry.completed ? "line-through text-gray-400" : ""
+                    className={`whitespace-pre-wrap break-words text-gray-700 dark:text-gray-300 ${
+                      entry.completed
+                        ? "line-through text-gray-400 dark:text-gray-500"
+                        : ""
                     }`}
                   >
                     {entry.details}
                   </p>
 
                   <p
-                    className={`text-md mt-1 ${
-                      entry.completed ? "line-through text-gray-400" : ""
+                    className={`text-md mt-1 text-gray-600 dark:text-gray-400 ${
+                      entry.completed
+                        ? "line-through text-gray-400 dark:text-gray-500"
+                        : ""
                     }`}
                   >
                     <strong>Due:</strong> {entry.date}
@@ -322,7 +343,7 @@ export default function Dashboard() {
                 <div className="flex space-x-2 mt-4 sm:mt-3">
                   <button
                     onClick={() => toggleComplete(entry.id, entry.completed)}
-                    className={`flex items-center px-3 py-1 rounded ${
+                    className={`flex items-center px-3 py-1 rounded transition ${
                       entry.completed
                         ? "bg-green-600 hover:bg-green-700 text-white"
                         : "bg-green-400 hover:bg-green-500 text-white"
@@ -343,7 +364,7 @@ export default function Dashboard() {
             ))}
           </>
         ) : (
-          <div className="text-center text-gray-500 py-12">
+          <div className="text-center text-gray-500 dark:text-gray-400 py-12">
             <LuNotebookText className="mx-auto text-5xl mb-4" />
             <p className="text-lg font-semibold">No Tasks Yet!</p>
             <p>Add a new task to get started.</p>
