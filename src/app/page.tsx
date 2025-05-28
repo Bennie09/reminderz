@@ -2,6 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import TestDark from "@/components/ThemeToggleTest";
+import { toast } from "react-toastify";
 import type { User } from "firebase/auth";
 import Tasks from "@/components/Dashboard";
 import Login from "@/components/Login";
@@ -20,10 +22,13 @@ export default function HomePage() {
 
   const handleLogout = async () => {
     await signOut(auth);
+    toast.error("Logged out successfully!");
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8 py-6">
+    <div className="flex flex-col min-h-screen px-4 sm:px-6 lg:px-8 py-6">
+      <TestDark />
+
       {user ? (
         <>
           {/* Header */}
@@ -39,7 +44,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex flex-col items-end mt-2">
-              <h3 className="text-sm sm:text-lg font-bold text-gray-700">
+              <h3 className="text-sm sm:text-lg font-bold text-white-700">
                 Welcome, {user?.displayName || "User"}!
               </h3>
               <button

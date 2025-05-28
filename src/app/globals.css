@@ -1,6 +1,82 @@
 @import "tailwindcss";
 
 
+@layer utilities {
+
+    .glass-card,
+    .glass-box {
+        border-radius: 1rem;
+        border-width: 1px;
+        border-color: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        transition-duration: 300ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow:
+            inset 0 0 10px rgba(255, 255, 255, 0.2),
+            0 4px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.1s ease-in-out;
+    }
+
+    .glass-card:hover {
+        box-shadow:
+            inset 0 0 15px rgba(255, 255, 255, 0.4),
+            0 6px 40px rgba(0, 0, 0, 0.15);
+    }
+}
+
 .font-winky {
     font-family: 'Winky Sans', sans-serif;
+}
+
+/* toast-custom.css */
+
+.Toastify__toast {
+    font-family: 'Winky Sans', sans-serif;
+    color: black !important;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.Toastify__toast--success {
+    color: #16a34a !important;
+}
+
+.Toastify__toast--error {
+    color: #dc2626 !important;
+}
+
+.Toastify__toast--info {
+    color: #2563eb !important;
+}
+
+.Toastify__toast--warning {
+    color: #f59e0b !important;
+}
+
+/* Limit toast width on small screens */
+@media (max-width: 600px) {
+    .Toastify__toast {
+        width: max-content !important;
+        margin-left: 50px;
+        box-sizing: border-box;
+    }
+
+    .Toastify__toast {
+        position: relative;
+        padding-right: 5rem !important;
+        border-radius: 7px !important;
+        /* extra space on the right */
+    }
+
+    .Toastify__close-button {
+        right: 1rem !important;
+        /* move close button slightly inward */
+    }
 }

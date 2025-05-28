@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "@/firebase";
 import {
@@ -21,6 +22,32 @@ export default function Login() {
   const [user, setUser] = useState<User | null>(null); // Signed-in user
   const [isSignUp, setIsSignUp] = useState<boolean>(false); // Toggle form
 
+  // ✅ Place this above your component
+  function formatFirebaseError(error: unknown): string {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      typeof (error as any).code === "string"
+    ) {
+      const code = (error as any).code;
+      const errorMap: { [key: string]: string } = {
+        "auth/invalid-email": "Invalid email address.",
+        "auth/user-not-found": "No user found with this email.",
+        "auth/wrong-password": "Incorrect password.",
+        "auth/email-already-in-use": "Email is already in use.",
+        "auth/invalid-credential": "Invalid credentials provided.",
+        "auth/weak-password":
+          "Password is too weak. It should be at least 6 characters long.",
+        "auth/operation-not-allowed": "Email/password sign-in is not enabled.",
+        "auth/too-many-requests": "Too many requests. Please try again later.",
+        "auth/unknown": "An unknown error occurred.",
+      };
+      return errorMap[code] || "An unexpected error occurred.";
+    }
+    return "Login failed.";
+  }
+
   // Subscribe to auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
@@ -38,8 +65,11 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       setEmail("");
       setPassword("");
+      toast.success("Log In successful!", {
+        position: "top-right",
+      });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Login failed";
+      const message = formatFirebaseError(err);
       setError(message);
     }
   };
@@ -79,8 +109,11 @@ export default function Login() {
       setName("");
       setEmail("");
       setPassword("");
+      toast.success("Sign Up successful!", {
+        position: "top-right",
+      });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Sign-up failed";
+      const message = formatFirebaseError(err);
       setError(message);
     }
   };
@@ -112,9 +145,21 @@ export default function Login() {
         onSubmit={isSignUp ? handleSignUp : handleLogin}
         className="space-y-4"
       >
+        {error && (
+          <p className="text-red-500 text-sm mb-4 border-red-500 border p-2 rounded bg-red-100">
+            <span className="font-semibold">Error: </span> {error}
+          </p>
+        )}
+
         {isSignUp && (
           <div>
-            <label className="block mb-1">Username</label>
+            <label
+              className={`block mb-1 ${
+                error ? "text-red-500" : "text-gray-700"
+              }`}
+            >
+              Username
+            </label>
             <input
               type="text"
               value={name}
@@ -123,13 +168,19 @@ export default function Login() {
               }
               placeholder="Choose a username"
               required
-              className="w-full p-2 border rounded"
+              className={`w-full p-2 border rounded ${
+                error ? "border-red-500" : "border-black"
+              }`}
             />
           </div>
         )}
 
         <div>
-          <label className="block mb-1">Email</label>
+          <label
+            className={`block mb-1 ${error ? "text-red-500" : "text-gray-700"}`}
+          >
+            Email
+          </label>
           <input
             type="email"
             value={email}
@@ -138,12 +189,18 @@ export default function Login() {
             }
             placeholder="you@example.com"
             required
-            className="w-full p-2 border rounded"
+            className={`w-full p-2 border rounded ${
+              error ? "border-red-500" : "border-black"
+            }`}
           />
         </div>
 
         <div>
-          <label className="block mb-1">Password</label>
+          <label
+            className={`block mb-1 ${error ? "text-red-500" : "text-gray-700"}`}
+          >
+            Password
+          </label>
           <input
             type="password"
             value={password}
@@ -152,11 +209,11 @@ export default function Login() {
             }
             placeholder="Enter Password"
             required
-            className="w-full p-2 border rounded"
+            className={`w-full p-2 border rounded ${
+              error ? "border-red-500" : "border-black"
+            }`}
           />
         </div>
-
-        {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
           type="submit"
@@ -166,7 +223,7 @@ export default function Login() {
         </button>
       </form>
 
-      <p className="mt-4 text-center text-sm">
+      <p className="mt-4 text-center text-sm text-black dark:text-white">
         {isSignUp ? (
           <>
             Already have an account?{" "}

@@ -5,6 +5,11 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    "dark:bg-black",
+    // Add other dynamic classes here
+  ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
