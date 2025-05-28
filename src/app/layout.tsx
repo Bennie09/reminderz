@@ -5,9 +5,10 @@ import "@fontsource/winky-sans/400.css";
 import "@fontsource/winky-sans/500.css";
 import "@fontsource/winky-sans/600.css";
 import "@fontsource/winky-sans/700.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { DarkModeProvider } from "@/contexts/DarkModeContext";
 
 export const metadata = {
   title: "TaskWise",
@@ -21,8 +22,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="">
-      <body className="min-h-screen font-winky bg-white text-black dark:bg-black dark:text-white transition-colors duration-300">
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="font-winky">
+        <DarkModeProvider>{children}</DarkModeProvider>
         <ToastContainer
           toastStyle={{
             fontFamily: "'Winky Sans', sans-serif",
