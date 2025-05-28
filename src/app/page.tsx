@@ -11,6 +11,7 @@ import { FiSun, FiMoon } from "react-icons/fi";
 import { auth } from "@/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { useDarkMode } from "@/contexts/DarkModeContext";
+import { toast } from "react-toastify";
 
 export default function HomePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -23,6 +24,7 @@ export default function HomePage() {
 
   const handleLogout = async () => {
     await signOut(auth);
+    toast.error("Logged out successfully!");
   };
 
   return (

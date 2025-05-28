@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "@/firebase";
 import {
@@ -39,6 +40,7 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       setEmail("");
       setPassword("");
+      toast.success("Logged in successfully!");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Login failed";
       setError(message);
@@ -80,6 +82,8 @@ export default function Login() {
       setName("");
       setEmail("");
       setPassword("");
+
+      toast.success("Account created successfully!");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Sign-up failed";
       setError(message);
