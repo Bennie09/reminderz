@@ -23,6 +23,32 @@ export default function Login() {
   const [user, setUser] = useState<User | null>(null); // Signed-in user
   const [isSignUp, setIsSignUp] = useState<boolean>(false); // Toggle form
 
+  // ✅ Place this above your component
+  function formatFirebaseError(error: unknown): string {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      typeof (error as any).code === "string"
+    ) {
+      const code = (error as any).code;
+      const errorMap: { [key: string]: string } = {
+        "auth/invalid-email": "Invalid email address.",
+        "auth/user-not-found": "No user found with this email.",
+        "auth/wrong-password": "Incorrect password.",
+        "auth/email-already-in-use": "Email is already in use.",
+        "auth/invalid-credential": "Invalid credentials provided.",
+        "auth/weak-password":
+          "Password is too weak. It should be at least 6 characters long.",
+        "auth/operation-not-allowed": "Email/password sign-in is not enabled.",
+        "auth/too-many-requests": "Too many requests. Please try again later.",
+        "auth/unknown": "An unknown error occurred.",
+      };
+      return errorMap[code] || "An unexpected error occurred.";
+    }
+    return "Login failed.";
+  }
+
   // Subscribe to auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
@@ -42,7 +68,7 @@ export default function Login() {
       setPassword("");
       toast.success("Logged in successfully!");
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Login failed";
+      const message = formatFirebaseError(err);
       setError(message);
     }
   };
@@ -85,7 +111,7 @@ export default function Login() {
 
       toast.success("Account created successfully!");
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Sign-up failed";
+      const message = formatFirebaseError(err);
       setError(message);
     }
   };
@@ -118,9 +144,19 @@ export default function Login() {
           onSubmit={isSignUp ? handleSignUp : handleLogin}
           className="space-y-4"
         >
+          {error && (
+            <p className="text-red-500 text-sm mb-4 border-red-500 border p-2 rounded bg-red-100">
+              <span className="font-semibold">Error: </span> {error}
+            </p>
+          )}
+
           {isSignUp && (
             <div>
-              <label className="block mb-1 text-gray-700 dark:text-gray-300">
+              <label
+                className={`block mb-1 text-gray-700 dark:text-gray-300 ${
+                  error ? "text-red-500" : "text-gray-700"
+                }`}
+              >
                 Username
               </label>
               <input
@@ -131,13 +167,19 @@ export default function Login() {
                 }
                 placeholder="Choose a username"
                 required
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors"
+                className={`w-full p-2 border ${
+                  error ? "border-red-500" : "border-black"
+                } rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors`}
               />
             </div>
           )}
 
           <div>
-            <label className="block mb-1 text-gray-700 dark:text-gray-300">
+            <label
+              className={`block mb-1 text-gray-700 dark:text-gray-300 ${
+                error ? "text-red-500" : "text-gray-700"
+              }`}
+            >
               Email
             </label>
             <input
@@ -148,12 +190,18 @@ export default function Login() {
               }
               placeholder="you@example.com"
               required
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors"
+              className={`w-full p-2 border ${
+                error ? "border-red-500" : "border-black"
+              } rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors`}
             />
           </div>
 
           <div>
-            <label className="block mb-1 text-gray-700 dark:text-gray-300">
+            <label
+              className={`block mb-1 text-gray-700 dark:text-gray-300 ${
+                error ? "text-red-500" : "text-gray-700"
+              }`}
+            >
               Password
             </label>
             <input
@@ -164,13 +212,11 @@ export default function Login() {
               }
               placeholder="Enter Password"
               required
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors"
+              className={`w-full p-2 border ${
+                error ? "border-red-500" : "border-black"
+              } rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors`}
             />
           </div>
-
-          {error && (
-            <p className="text-red-500 dark:text-red-400 text-sm">{error}</p>
-          )}
 
           <button
             type="submit"

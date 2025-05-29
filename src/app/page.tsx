@@ -10,17 +10,21 @@ import { RxExit } from "react-icons/rx";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { auth } from "@/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { useDarkMode } from "@/contexts/DarkModeContext";
+import { useTheme } from "next-themes";
 import { toast } from "react-toastify";
 
 export default function HomePage() {
   const [user, setUser] = useState<User | null>(null);
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const unsubscribe = onAuthStateChanged(auth, setUser);
     return unsubscribe;
   }, []);
+
+  if (!mounted) return null;
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -50,13 +54,19 @@ export default function HomePage() {
               <div className="flex items-center space-x-3 mt-2">
                 {/* Dark Mode Toggle */}
                 <button
-                  onClick={toggleDarkMode}
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                   className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                   title={
-                    isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
+                    theme === "dark"
+                      ? "Switch to Light Mode"
+                      : "Switch to Dark Mode"
                   }
                 >
-                  {isDarkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
+                  {theme === "dark" ? (
+                    <FiSun size={18} />
+                  ) : (
+                    <FiMoon size={18} />
+                  )}
                 </button>
 
                 {/* Logout Button */}
@@ -92,13 +102,15 @@ export default function HomePage() {
 
             {/* Dark Mode Toggle for Login Page */}
             <button
-              onClick={toggleDarkMode}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
               title={
-                isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
+                theme === "dark"
+                  ? "Switch to Light Mode"
+                  : "Switch to Dark Mode"
               }
             >
-              {isDarkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
+              {theme === "dark" ? <FiSun size={18} /> : <FiMoon size={18} />}
             </button>
           </div>
 
