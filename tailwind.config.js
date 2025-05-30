@@ -9,7 +9,7 @@ export default {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class", // Use "selector" instead of "class" for v4
+  darkMode: "selector",
   theme: {
     extend: {
       fontFamily: {

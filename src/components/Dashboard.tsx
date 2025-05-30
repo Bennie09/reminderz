@@ -179,7 +179,7 @@ export default function Dashboard() {
       {/* Task Form */}
       {/* Task Form */}
       <div className="w-full max-w-2xl bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border dark:border-gray-700">
-        <h1 className="text-center text-2xl font-semibold mb-4 text-black dark:text-white">
+        <h1 className="text-center text-2xl font-semibold mb-4 text-gray-200 dark:text-gray-300">
           Set Tasks
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -306,7 +306,7 @@ export default function Dashboard() {
               >
                 <div>
                   <h3
-                    className={`text-lg font-semibold whitespace-pre-wrap break-words text-black dark:text-white ${
+                    className={`text-lg font-semibold whitespace-pre-wrap break-words text-gray-200 dark:text-gray-300 ${
                       entry.completed
                         ? "line-through text-gray-400 dark:text-gray-500 flex flex-col"
                         : ""

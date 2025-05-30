@@ -72,7 +72,7 @@ export default function HomePage() {
                 {/* Logout Button */}
                 <button
                   onClick={handleLogout}
-                  className="flex cursor-pointer bg-transparent text-red-500 dark:text-red-400 text-sm hover:text-red-600 dark:hover:text-red-300 transition-colors"
+                  className="flex cursor-pointer bg-transparent text-red-500 dark:text-red-500 text-sm hover:text-red-600 dark:hover:text-red-300 transition-colors"
                 >
                   <span className="text-sm sm:block pt-3 pr-1">Logout</span>
                   <RxExit className="text-lg mt-3" />
