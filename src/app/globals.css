@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-    --color-gray-50: #f9fafb;
-    --color-gray-100: #f3f4f6;
-    --color-gray-200: #e5e7eb;
-    --color-gray-300: #d1d5db;
-    --color-gray-400: #9ca3af;
-    --color-gray-500: #6b7280;
-    --color-gray-600: #4b5563;
-    --color-gray-700: #374151;
-    --color-gray-800: #1f2937;
-    --color-gray-900: #111827;
+    --color-gray-50: #fafafa;
+    --color-gray-100: #f4f4f5;
+    --color-gray-200: #e4e4e7;
+    --color-gray-300: #d4d4d8;
+    --color-gray-400: #a1a1aa;
+    --color-gray-500: #71717a;
+    --color-gray-600: #52525b;
+    --color-gray-700: #3f3f46;
+    --color-gray-800: #27272a;
+    --color-gray-900: #18181b;
     --color-blue-400: #60a5fa;
     --color-blue-500: #3b82f6;
     --color-blue-600: #2563eb;
@@ -26,16 +26,16 @@
 }
 
 .dark {
-    --color-gray-50: #18181b;
-    --color-gray-100: #27272a;
-    --color-gray-200: #3f3f46;
-    --color-gray-300: #52525b;
-    --color-gray-400: #71717a;
-    --color-gray-500: #a1a1aa;
-    --color-gray-600: #d4d4d8;
-    --color-gray-700: #e4e4e7;
-    --color-gray-800: #f4f4f5;
-    --color-gray-900: #fafafa;
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-300: #d1d5db;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
     --color-blue-400: #60a5fa;
     --color-blue-500: #3b82f6;
     --color-blue-600: #2563eb;
@@ -77,6 +77,53 @@
 
 .font-winky {
     font-family: 'Winky Sans', sans-serif;
+}
+
+.orbit-spinner {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    animation: orbit-rotate 1.2s linear infinite;
+}
+
+.orbit-ball {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #2563eb;
+    top: 50%;
+    left: 50%;
+    margin: -7px 0 0 -7px;
+    transform-origin: 24px 0px;
+}
+
+.orbit-ball.ball1 {
+    transform: rotate(0deg) translateX(24px);
+}
+
+.orbit-ball.ball2 {
+    transform: rotate(90deg) translateX(24px);
+}
+
+.orbit-ball.ball3 {
+    transform: rotate(180deg) translateX(24px);
+}
+
+.orbit-ball.ball4 {
+    transform: rotate(270deg) translateX(24px);
+}
+
+@media (prefers-color-scheme: dark) {
+    .orbit-ball {
+        background: #60a5fa;
+    }
+}
+
+@keyframes orbit-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* toast-custom.css */

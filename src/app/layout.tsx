@@ -20,10 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="transition-colors duration-300 font-winky">
+      <body className="transition-colors duration-300 font-winky dark:bg-gray-900">
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem={false}
         >
           {children}
