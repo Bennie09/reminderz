@@ -31,9 +31,9 @@ export default function Login() {
       typeof error === "object" &&
       error !== null &&
       "code" in error &&
-      typeof (error as any).code === "string"
+      typeof (error as { code?: unknown }).code === "string"
     ) {
-      const code = (error as any).code;
+      const code = (error as { code: string }).code;
       const errorMap: { [key: string]: string } = {
         "auth/invalid-email": "Invalid email address.",
         "auth/user-not-found": "No user found with this email.",
@@ -61,7 +61,7 @@ export default function Login() {
   }, []);
 
   // Login handler
-  const handleLogin = async (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
@@ -78,7 +78,7 @@ export default function Login() {
     }
   };
 
-  const handleSignUp = async (e: FormEvent) => {
+  const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     if (!name.trim()) {
@@ -251,7 +251,7 @@ export default function Login() {
               </>
             ) : (
               <>
-                Don't have an account?{" "}
+                Don&rsquo;t have an account?{" "}
                 <button
                   type="button"
                   onClick={() => {

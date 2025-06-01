@@ -1,9 +1,6 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
-import DatePicker, { registerLocale } from "react-datepicker";
-import { enGB } from "date-fns/locale/en-GB";
-import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { addDoc, collection } from "firebase/firestore";
@@ -12,8 +9,6 @@ import { auth, db } from "@/firebase";
 import { CiCirclePlus } from "react-icons/ci";
 import { toast } from "react-toastify";
 import LoadingOverlay from "@/components/LoadingOverlay"; // Add this import
-
-registerLocale("en-GB", enGB);
 
 interface TaskInput {
   title: string;
@@ -70,13 +65,6 @@ export default function Dashboard() {
     setTasks({ title: "", details: "", date: "", time: "" });
     setIsLoading(false); // End loading
     toast.success("Task added successfully!");
-  };
-
-  const handleDateChange = (date: Date | null) => {
-    if (date && !isNaN(date.getTime())) {
-      setTasks((prev) => ({ ...prev, date: format(date, "yyyy-MM-dd") }));
-      setError((prev) => ({ ...prev, error2: "" }));
-    }
   };
 
   const handleChange = (

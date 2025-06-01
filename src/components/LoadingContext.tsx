@@ -1,11 +1,22 @@
 "use client";
 
-import { useState, createContext, useContext } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import LoadingOverlay from "@/components/LoadingOverlay";
 
-const LoadingContext = createContext({
+interface LoadingContextType {
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+}
+
+const LoadingContext = createContext<LoadingContextType>({
   loading: false,
-  setLoading: (_: boolean) => {},
+  setLoading: () => {}, // No unused parameter
 });
 
 export const useLoading = () => useContext(LoadingContext);

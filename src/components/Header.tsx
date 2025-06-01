@@ -4,19 +4,19 @@ import { useState, useEffect } from "react";
 import type { User } from "firebase/auth";
 import { TbListCheck } from "react-icons/tb";
 import { RxExit } from "react-icons/rx";
-import { FiSun, FiMoon } from "react-icons/fi";
+// import { FiSun, FiMoon } from "react-icons/fi";
 import { auth } from "@/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 import { toast } from "react-toastify";
-import Link from "next/link";
+// import Link from "next/link";
 import Menu from "@/components/MenuComponent";
 
 import { useRouter } from "next/navigation";
 
 export function Header() {
   const [user, setUser] = useState<User | null>(null);
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
