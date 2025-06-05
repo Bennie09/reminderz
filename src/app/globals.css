@@ -35,12 +35,12 @@
   font-family: "Winky Sans", sans-serif;
   color: black !important;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(17, 24, 39, 0.7) !important;
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgb(0, 0, 0);
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(7, 3, 28, 0.3);
 }
 
 .Toastify__toast--success {

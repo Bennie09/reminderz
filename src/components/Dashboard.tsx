@@ -3,7 +3,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { auth, db } from "@/firebase";
 
 import { CiCirclePlus } from "react-icons/ci";
@@ -38,8 +38,8 @@ export default function Dashboard() {
       ownerEmail: user.email,
       ownerName: user.displayName,
       completed: false,
-      createdAt: new Date(),
-      dueAt: new Date(`${task.date}T${task.time}`),
+      createdAt: Timestamp.fromDate(new Date()),
+      dueAt: Timestamp.fromDate(new Date(`${task.date}T${task.time}`)),
     });
   }
 

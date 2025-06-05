@@ -78,11 +78,16 @@ export default function Login() {
     }
   };
 
+  // Sign Up handler
+
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
+
     if (!name.trim()) {
       setError("Please enter a username");
+      setIsLoading(false);
       return;
     }
 
@@ -101,14 +106,11 @@ export default function Login() {
         createdAt: new Date(),
       });
 
-      // ✅ Send welcome email
-      await fetch("/.netlify/functions/sendWelcomeEmail", {
+      // Send welcome email
+      await fetch("/api/send-signup-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: cred.user.email,
-          name: name.trim(),
-        }),
+        body: JSON.stringify({ to: email, name }),
       });
 
       setName("");
@@ -116,9 +118,12 @@ export default function Login() {
       setPassword("");
 
       toast.success("Account created successfully!");
+      setTimeout(() => setIsLoading(false), 2000);
     } catch (err: unknown) {
       const message = formatFirebaseError(err);
       setError(message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
