@@ -35,7 +35,7 @@
   font-family: "Winky Sans", sans-serif;
   color: black !important;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.3) !important;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(12px);

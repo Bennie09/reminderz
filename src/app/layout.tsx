@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import type { Viewport } from "next";
 
 export const viewport: Viewport = {
-  themeColor: "#111827", // Tailwind's gray-900
+  themeColor: "#1E3A8A ", // Tailwind's gray-900
 };
 
 export const metadata = {
