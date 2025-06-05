@@ -1,20 +1,18 @@
-// tailwind.config.js - Tailwind v4 configuration
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
+  darkMode: "class",
   content: [
-    "./src/app/**/*.{js,ts,jsx,tsx}",
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./app/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "selector",
   theme: {
     extend: {
       fontFamily: {
-        winky: ['"Winky Sans"', "sans-serif"],
+        winky: ["'Winky Sans'", "sans-serif"],
       },
     },
   },
+  plugins: [],
 };

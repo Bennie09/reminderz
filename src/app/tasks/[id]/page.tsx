@@ -107,7 +107,7 @@ export default function TaskDetailsPage() {
           <LuUndo2 />
         </Link>
       </div>
-      <div className="p-4 max-w-xl mb-6 mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md border dark:border-gray-700">
+      <div className="p-4 max-w-xl mb-6 mx-auto bg-gray-800 rounded-lg shadow-md border-gray-700">
         <h1 className="text-2xl font-bold mb-4 text-gray-300 text-center">
           Task Details
         </h1>
@@ -118,27 +118,27 @@ export default function TaskDetailsPage() {
               placeholder="Task Title"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full p-3 text-md font-semibold border rounded-md"
+              className="w-full p-3 text-md font-semibold border rounded-md border-transparent focus:focus:border-blue-400 focus:outline-none transition-colors bg-gray-700 text-gray-100 placeholder-gray-400"
             />
             <textarea
               placeholder="Details"
               value={form.details}
               onChange={(e) => setForm({ ...form, details: e.target.value })}
               rows={5}
-              className="w-full p-3 border rounded-md"
+              className="w-full p-3 resize-none border rounded-md border-transparent focus:focus:border-blue-400 focus:outline-none transition-colors bg-gray-700 text-gray-100 placeholder-gray-400"
             />
             <div className="grid grid-cols-2 gap-4">
               <input
                 type="date"
                 value={form.date}
                 onChange={(e) => setForm({ ...form, date: e.target.value })}
-                className="p-2 border rounded-md"
+                className="p-2 border rounded-md border-transparent focus:focus:border-blue-400 focus:outline-none transition-colors bg-gray-700 text-gray-100 placeholder-gray-400"
               />
               <input
                 type="time"
                 value={form.time}
                 onChange={(e) => setForm({ ...form, time: e.target.value })}
-                className="p-2 border rounded-md"
+                className="p-2 border rounded-md border-transparent focus:focus:border-blue-400 focus:outline-none transition-colors bg-gray-700 text-gray-100 placeholder-gray-400"
               />
             </div>
             <button

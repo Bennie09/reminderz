@@ -89,7 +89,7 @@ export default function MenuComponent() {
       <button
         ref={buttonRef}
         onClick={toggleMenu}
-        className="flex items-center justify-center p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+        className="flex items-center justify-center p-2 rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors cursor-pointer"
         title="Menu"
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -101,12 +101,12 @@ export default function MenuComponent() {
       {isOpen && (
         <div
           ref={menuRef}
-          className="absolute top-full mt-2 right-0 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-50 w-40 dark:hover:bg-gray-700 transition-colors duration-150 overflow-hidden "
+          className="absolute top-full mt-2 right-0 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 w-40 hover:bg-gray-700 transition-colors duration-150 overflow-hidden "
         >
           <Link
             href="/"
             onClick={closeMenu}
-            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-md transition-colors hover:border-gray-300 dark:hover:border-gray-600"
+            className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 rounded-md transition-colors hover:border-gray-600"
           >
             Add New Task
           </Link>
@@ -116,7 +116,7 @@ export default function MenuComponent() {
           <Link
             href="/tasks"
             onClick={closeMenu}
-            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-md transition-colors hover:border-gray-300 dark:hover:border-gray-600"
+            className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 rounded-md transition-colors hover:border-gray-600"
           >
             View Tasks
           </Link>

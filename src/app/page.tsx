@@ -22,7 +22,7 @@ export default function HomePage() {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 px-4 sm:px-6 lg:px-8 py-6 transition-colors duration-300">
+    <div className="flex flex-col min-h-screen bg-gray-900 px-4 sm:px-6 lg:px-8 py-6 transition-colors duration-300">
       {user ? (
         <>
           <Header />

@@ -80,8 +80,8 @@ export default function Dashboard() {
     <div className="flex flex-col items-center">
       {isLoading && <LoadingOverlay />} {/* Loader overlay */}
       {/* Task Form */}
-      <div className="w-full max-w-2xl bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border dark:border-gray-700">
-        <h1 className="text-center text-2xl font-semibold mb-4 text-gray-200 dark:text-gray-300">
+      <div className="w-full max-w-2xl bg-gray-800 p-6 rounded-2xl shadow-md border-gray-700">
+        <h1 className="text-center text-2xl font-semibold mb-4 text-gray-300">
           Set Tasks
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -89,9 +89,7 @@ export default function Dashboard() {
           <div>
             <label
               className={`block mb-1 ${
-                error.error1
-                  ? "text-red-500"
-                  : "text-gray-700 dark:text-gray-300"
+                error.error1 ? "text-red-500" : "text-gray-300"
               }`}
             >
               Task Title
@@ -102,10 +100,8 @@ export default function Dashboard() {
               value={tasks.title}
               onChange={handleChange}
               placeholder="E.g., Grocery Shopping"
-              className={`w-full p-2 border rounded bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
-                error.error1
-                  ? "border-red-500"
-                  : "border-gray-300 dark:border-gray-600"
+              className={`w-full p-2 border rounded bg-gray-700 text-white placeholder-gray-400 focus:focus:border-blue-400 focus:outline-none transition-colors ${
+                error.error1 ? "border-red-500" : "border-transparent"
               }`}
             />
             {error.error1 && (
@@ -115,16 +111,14 @@ export default function Dashboard() {
 
           {/* Details */}
           <div>
-            <label className="block mb-1 text-gray-700 dark:text-gray-300">
-              Task Details
-            </label>
+            <label className="block mb-1 text-gray-300">Task Details</label>
             <textarea
               name="details"
               value={tasks.details}
               onChange={handleChange}
               rows={3}
               placeholder="Enter additional details.."
-              className="w-full p-2 border rounded resize-none bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 border-gray-300 dark:border-gray-600"
+              className="w-full p-2 border rounded resize-none bg-gray-700 text-white placeholder-gray-400 border-transparent focus:focus:border-blue-400 focus:outline-none transition-colors"
             />
           </div>
 
@@ -132,9 +126,7 @@ export default function Dashboard() {
           <div>
             <label
               className={`block mb-1 ${
-                error.error2
-                  ? "text-red-500"
-                  : "text-gray-700 dark:text-gray-300"
+                error.error2 ? "text-red-500" : "text-gray-300"
               }`}
             >
               Due Date
@@ -145,10 +137,8 @@ export default function Dashboard() {
               onChange={(e) =>
                 setTasks((prev) => ({ ...prev, date: e.target.value }))
               }
-              className={`w-full max-w-2xl p-2 border rounded bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
-                error.error2
-                  ? "border-red-500"
-                  : "border-gray-300 dark:border-gray-600"
+              className={`w-full max-w-2xl p-2 border rounded bg-gray-700 text-white placeholder-gray-400 focus:focus:border-blue-400 focus:outline-none transition-colors ${
+                error.error2 ? "border-red-500" : "border-transparent"
               }`}
               placeholder="Set Reminder Date"
             />
@@ -161,9 +151,7 @@ export default function Dashboard() {
           <div>
             <label
               className={`block mb-1 ${
-                error.error3
-                  ? "text-red-500"
-                  : "text-gray-700 dark:text-gray-300"
+                error.error3 ? "text-red-500" : "text-gray-300"
               }`}
             >
               Reminder Time
@@ -174,10 +162,8 @@ export default function Dashboard() {
               value={tasks.time}
               onChange={handleChange}
               placeholder="Set Reminder Time"
-              className={`w-full p-2 border rounded bg-white dark:bg-gray-700 text-black dark:text-white ${
-                error.error3
-                  ? "border-red-500"
-                  : "border-gray-300 dark:border-gray-600"
+              className={`w-full p-2 border rounded bg-gray-700 text-white focus:focus:border-blue-400 focus:outline-none transition-colors ${
+                error.error3 ? "border-red-500" : "border-transparent"
               }`}
             />
             {error.error3 && (
@@ -187,7 +173,7 @@ export default function Dashboard() {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center space-x-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white cursor-pointer py-2 rounded transition"
+            className="w-full flex items-center justify-center space-x-2 bg-blue-500 hover:dark:hover:bg-blue-700 text-white cursor-pointer py-2 rounded transition"
           >
             <CiCirclePlus className="text-xl" />
             <span>Add Task</span>

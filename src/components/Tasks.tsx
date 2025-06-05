@@ -110,10 +110,8 @@ export default function TasksPage() {
   const totalPages = Math.ceil(entries.length / TASKS_PER_PAGE);
 
   const pageBtn = (p: number) =>
-    `px-3 py-1 rounded-md border dark:border-gray-600 text-sm font-medium transition-all ${
-      page === p
-        ? "bg-blue-500 text-white dark:bg-blue-600"
-        : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+    `px-3 py-1 rounded-md border-gray-600 text-sm font-medium transition-all ${
+      page === p ? "bg-blue-500 bg-blue-600" : "bg-blue-500/50 text-gray-300"
     }`;
 
   return (
@@ -126,7 +124,7 @@ export default function TasksPage() {
         <div className="flex justify-between items-center mb-4">
           <Link
             href="/"
-            className="flex items-center bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
+            className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:hover:bg-blue-700 transition-colors"
           >
             <LuPlus className="mr-2" />
             Add New Task
@@ -135,14 +133,14 @@ export default function TasksPage() {
             <button
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
               disabled={page === 1}
-              className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <LuMinus />
             </button>
             <button
               onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={page === totalPages}
-              className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <LuPlus />
             </button>
@@ -150,7 +148,7 @@ export default function TasksPage() {
         </div>
         {entries.length > 0 ? (
           <>
-            <h1 className="text-center text-2xl font-semibold mb-4 text-black dark:text-white">
+            <h1 className="text-center text-2xl font-semibold mb-4">
               Your Tasks
             </h1>
             <div className="grid grid-cols-1 gap-4">
@@ -158,24 +156,20 @@ export default function TasksPage() {
                 <div
                   key={entry.id}
                   onClick={() => router.push(`/tasks/${entry.id}`)}
-                  className="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md border dark:border-gray-700 hover:ring-2 hover:ring-blue-400 transition"
+                  className="cursor-pointer bg-gray-800 p-4 rounded-2xl shadow-md border-gray-700 hover:ring-2 hover:ring-blue-400 transition"
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col">
                       <h3
                         className={`text-lg font-semibold ${
-                          entry.completed
-                            ? "line-through dark:text-gray-500"
-                            : ""
+                          entry.completed ? "line-through text-gray-500" : ""
                         }`}
                       >
                         {entry.title}
                       </h3>
                       <p
-                        className={`text-sm text-gray-600 dark:text-gray-400 ${
-                          entry.completed
-                            ? "line-through dark:text-gray-500"
-                            : ""
+                        className={`text-sm text-gray-400 ${
+                          entry.completed ? "line-through text-gray-500" : ""
                         }`}
                       >
                         Due: {entry.date}
@@ -256,7 +250,7 @@ export default function TasksPage() {
             )}
           </>
         ) : (
-          <div className="text-center text-gray-500 dark:text-gray-400 py-12">
+          <div className="text-center text-gray-400 py-12">
             <LuNotebookText className="mx-auto text-5xl mb-4" />
             <p className="text-lg font-semibold">No Tasks Yet!</p>
             <p>Add a new task to get started.</p>

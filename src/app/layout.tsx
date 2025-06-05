@@ -6,7 +6,7 @@ import "@fontsource/winky-sans/600.css";
 import "@fontsource/winky-sans/700.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
+// import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata = {
   title: "TaskWise",
@@ -20,21 +20,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="transition-colors duration-300 font-winky dark:bg-gray-900">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-        >
-          {children}
-          <ToastContainer
-            toastStyle={{
-              fontFamily: "'Winky Sans', sans-serif",
-            }}
-            position="top-right"
-            autoClose={3000}
-          />
-        </ThemeProvider>
+      <body className="transition-colors duration-300 font-winky bg-gray-900 text-gray-100 min-h-screen">
+        {children}
+        <ToastContainer
+          toastStyle={{
+            fontFamily: "'Winky Sans', sans-serif",
+          }}
+          position="top-right"
+          autoClose={3000}
+        />
       </body>
     </html>
   );
