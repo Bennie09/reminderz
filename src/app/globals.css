@@ -9,7 +9,7 @@
     border-radius: 1rem;
     border-width: 1px;
     border-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     transition-duration: 300ms;

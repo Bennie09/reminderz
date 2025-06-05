@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const metadata = {
   title: "TaskWise",
   description: "Organize your life, a task at a time.",
+  themeColor: "#111827", // Tailwind's gray-900
 };
 
 export default function RootLayout({
