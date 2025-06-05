@@ -35,9 +35,9 @@
   font-family: "Winky Sans", sans-serif;
   color: black !important;
   padding: 16px;
-  background: rgba(17, 24, 39, 0.7) !important;
+  background: rgba(17, 24, 39, 0.9) !important;
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgb(255, 255, 255);
+  box-shadow: 0 4px 30px rgba(99, 99, 99, 0.47);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(7, 3, 28, 0.3);
@@ -63,7 +63,7 @@
 @media (max-width: 600px) {
   .Toastify__toast {
     width: max-content !important;
-    background: rgba(17, 24, 39, 0.9) !important;
+    background: rgba(17, 24, 39, 1) !important;
     margin-left: 50px;
     box-sizing: border-box;
   }
