@@ -7,11 +7,15 @@ import "@fontsource/winky-sans/700.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { ThemeProvider } from "@/components/ThemeProvider";
+import type { Viewport } from "next";
+
+export const viewport: Viewport = {
+  themeColor: "#111827", // Tailwind's gray-900
+};
 
 export const metadata = {
   title: "TaskWise",
   description: "Organize your life, a task at a time.",
-  themeColor: "#111827", // Tailwind's gray-900
 };
 
 export default function RootLayout({
