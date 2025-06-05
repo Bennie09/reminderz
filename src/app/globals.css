@@ -37,7 +37,7 @@
   padding: 16px;
   background: rgba(17, 24, 39, 0.7) !important;
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgb(0, 0, 0);
+  box-shadow: 0 4px 30px rgb(255, 255, 255);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(7, 3, 28, 0.3);
@@ -63,6 +63,7 @@
 @media (max-width: 600px) {
   .Toastify__toast {
     width: max-content !important;
+    background: rgba(17, 24, 39, 0.9) !important;
     margin-left: 50px;
     box-sizing: border-box;
   }
